@@ -1,0 +1,92 @@
+﻿@model Movie_Ticket.Areas.admin.ViewModels.adminFilmViewModelListe
+    
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Film Düzenle <small>Film İçeriğinin Düzenlenmesi</small></h2>
+            <ul class="nav navbar-right">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+            </ul>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.RouteUrl("AddMovie")'">Yeni Film</button>
+        </div>
+
+        <div class="x_content">
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Film Adı</th>
+                        <th>Afiş</th>
+                        <th>Özet</th>
+                        <th>Oyuncular</th>
+                        <th>Dil</th>
+                        <th>Süresi</th>
+                        <th>Türü</th>
+                        @*<th></th>*@
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Films)
+                    {
+                        <tr id="tr_@item.ID">
+                            <td>@item.ID</td>
+                            <td>@item.Adi</td>
+                            <td>@item.Afis</td>
+                            <td>@item.Ozet</td>
+                            <td>@item.Oyuncular</td>
+                            <td>@item.Dil</td>
+                            <td>@item.Suresi</td>
+                            <td>@item.FilmTuru.Turu</td>
+                              @*<td>
+                                @Html.RouteLink("Düzenle", "EditMovie", new { id = item.ID })
+                            </td>*@
+                            <td>
+                                <a href="#" onclick="DeleteMovie(@item.ID)">Sil</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function DeleteMovie(id) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/filmSil",
+                data: { ID: id },
+                success: function (data) {
+                    $("#tr_" + id).remove();
+
+                }
+
+            });
+        }
+
+
+    </script>
+    }
+
+
+

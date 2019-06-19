@@ -1,0 +1,89 @@
+﻿@model Movie_Ticket.Areas.admin.ViewModels.AdminSalonViewModelListele
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Salon Düzenle <small>Salon İçeriğinin Düzenlenmesi</small></h2>
+            <ul class="nav navbar-right">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+            </ul>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.RouteUrl("AddHall")'">Yeni Salon</button>
+        </div>
+
+        <div class="x_content">
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Salon Adı</th>
+                        <th>Kapasite</th>
+                        <th>Satır</th>
+                        <th>Sütun</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Salonlar)
+                    {
+                        <tr id="tr_@item.ID">
+                            <td>@item.ID</td>
+                            <td>@item.SalonAdi</td>
+                            <td>@item.Kapasite</td>
+                            <td>@item.Satir</td>
+                            <td>@item.Sutun</td>
+                            <td>
+                                @Html.RouteLink("Düzenle", "EditHall", new { id = item.ID })
+                            </td>
+                            <td>
+                                <a href="#" onclick="DeleteHall(@item.ID)">Sil</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function DeleteHall(id) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/salonSil",
+                data: { ID: id },
+                success: function (data) {
+                    $("#tr_" + id).remove();
+
+                }
+
+            });
+        }
+
+
+    </script>
+
+}
+
+

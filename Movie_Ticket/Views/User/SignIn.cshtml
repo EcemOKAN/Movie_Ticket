@@ -1,0 +1,80 @@
+﻿@model Movie_Ticket.ViewModels.KullaniciGirisi
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <title>Film Sitesi</title>
+</head>
+<body class="kayitbgnew">
+    <!-- Header -->
+    <div id="Header">
+        <div class="Header">
+            <img src="~/Content/img/logo.png" alt="Logo" />
+        </div>
+    </div>
+    <!-- Body -->
+    <div id="Body2" style="height:100px">
+        <!-- Body Kategori -->
+        <div class="BKapla">
+            <div class="BKat">
+                <!-- Sol Menü -->
+                <ul class="BSol">
+                    <li><a href="@Url.RouteUrl("Home")">VİZYONDAKİ FİLMLER</a></li>
+
+                </ul>
+                <!-- Sağ Menü -->
+                <ul class="BSag">
+
+                    <li><div class="k1"></div><a href="@Url.RouteUrl("SignUp")">KAYDOL</a></li>
+                    <li><div class="g1"></div><a href="@Url.RouteUrl("SignIn")">GİRİŞ YAP</a></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
+    </div>
+    <!-- Giriş Bölümü -->
+    <div id="KayitBolumu">
+        <div class="baslik">GİRİŞ</div>
+        <div class="aciklama">
+            <p>En Sevdiginiz filimleri sizler için seçtik.</p>
+            <p>Movicub ailesi olarak en iyi şekilde sizlere hizmet vermekteyiz.</p>
+            <p class="s">Hesabın yok mu?<br /><br /> <span><a href="#">Kayıt Ol</a></span></p>
+        </div>
+
+        @*<form action="">
+            <input type="text" name="kullanici" placeholder="Kullanıcı Adı" />
+            <input type="text" name="kullanici" placeholder="Şifre" />
+            <button>Giriş Yap</button>
+        </form>*@
+
+        @using (Html.BeginForm())
+        {
+            @Html.Raw(ViewBag.Message)
+            <div class="form-group">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", @autocomplete = "off", @placeholder = "E-Mailinizi Giriniz." , @type = "text" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "shata" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.EditorFor(model => model.SifreHash, new { htmlAttributes = new { @class = "form-control form-control-solid placeholder-no-fix", @autocomplete = "off", @placeholder = "Şifrenizi Giriniz.", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.SifreHash, "", new { @class = "shata" })
+
+            </div>
+            <div class="form-actions">
+                <button type="submit">Giriş Yap</button>
+            </div>
+        }
+
+    </div>
+
+</body>
+</html>

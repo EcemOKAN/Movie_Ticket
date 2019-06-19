@@ -1,0 +1,109 @@
+﻿@model Movie_Ticket.Areas.admin.ViewModels.movieAdd
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Film Ekle <small>Film İçeriğinin Eklenmesi</small></h2>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.RouteUrl("Movies")'">Film Listesi</button>
+        </div>
+
+        <div class="clearfix"></div>
+        @Html.Raw(@ViewBag.Message)
+        @using (Html.BeginForm("Add", "Movie", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+        <div class="x_content">
+            <br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Film Adı <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Adi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Adi, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Özet <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Ozet, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ozet, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Oyuncular <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Oyuncular, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Oyuncular, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Dil <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Dil, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Dil, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Süresi <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Suresi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Suresi, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+
+            <div class="form-group">
+            <br />
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                Afiş <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="file" name="image" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+            </div>
+        </div>
+
+
+            <div class="clearfix"></div>
+            <br />
+            <br />
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                    <button type="submit" class="btn btn-success">Kaydet</button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

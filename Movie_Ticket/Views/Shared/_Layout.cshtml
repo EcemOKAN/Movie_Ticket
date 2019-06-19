@@ -1,0 +1,96 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Film Bilet</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <!-- Jquery Javascript Libary Plugin -->
+    <script src="~/Content/plugins/jquery/jquery-1.11.3.js"></script>
+    <!-- Owl Cerousel Slider Plugin -->
+    <link href="~/Content/plugins/owlcarousel/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/plugins/owlcarousel/owl.theme.css" rel="stylesheet" />
+    <script src="~/Content/plugins/owlcarousel/owl.carousel.js"></script>
+    <!-- System Cumtop Js-->
+    <script src="~/Content/plugins/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/custom.js"></script>
+    <link href="~/Content/plugins/heart/fonts/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/heart/css/icons.css" rel="stylesheet" />
+    <link href="~/Content/css/SeatStyle.css" rel="stylesheet" />
+    @*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />*@
+
+    @*@Styles.Render("~/styles")
+        @Scripts.Render("~/scripts")*@
+
+</head>
+<body>
+    <!-- Header -->
+    <div id="Header">
+        <div class="Header">
+            <img src="~/Content/img/logo.png" alt="Logo" />
+        </div>
+    </div>
+    <!-- Body -->
+    <div id="Body2">
+        <!-- Body image -->
+        <img src="~/Content/img/bg_bg.png" style="width:100%;height:387px;position:absolute;z-index:-1;min-width:1300px!important" />
+        <!-- Body Kategori -->
+        <div class="BKapla">
+            <div class="BKat">
+                <!-- Sol Menü -->
+                <ul class="BSol">
+                    <li><a href="@Url.RouteUrl("Home")">VİZYONDAKİ FİLMLER</a></li>
+
+                </ul>
+                <!-- Sağ Menü -->
+                <ul class="BSag">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><div class="g1"></div><a href="@Url.RouteUrl("Logout")">ÇIKIŞ YAP</a></li>
+                    }
+                    else
+                    {
+                        <li><div class="k1"></div><a href="@Url.RouteUrl("SignUp")">KAYDOL</a></li>
+                        <li><div class="g1"></div><a href="@Url.RouteUrl("SignIn")">GİRİŞ YAP</a></li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Öne Çıkan Filmler -->
+    @RenderBody()
+    <!-- Footer -->
+    <div id="Footer">
+        <div class="FooterUst">
+            <div class="Footer">
+                <div class="FLogo" style="width:30%"><img src="https://www.trakya.edu.tr/admin/tools/theme/www_v2/images/logo/tr/logo.png" style="width:100px;height:100px;" alt="" /></div>
+                <div class="FSosyalMedya" style="width:70%">
+                    <div class="SB" style="margin-left:180px">WEB TABANLI PROGRAMLAMA</div>
+                    <div class="SA" style="margin-left:180px">Sinema Bilet Seçim Proje Ödevi</div>
+                    <div class="SB" style="margin-left:180px">Ecem OKAN</div>
+                    <div class="Hesaplar" style="margin-left:400px">
+                        <a href="https://www.facebook.com/ecem.okan.1"><div class="Sh Facebook"></div></a>
+                        <a href="https://twitter.com/ecemokan"><div class="Sh Twitter"></div></a>
+                        <div class="Sh Google"></div>
+                        <a href="https://www.instagram.com/ecemokan/"><div class="Sh Instagram"></div></a>
+                        <a href="https://www.linkedin.com/in/ecemokan"><div class="Sh In"></div></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="FooterAlt">COPYRIGHT 2019 | TÜM HAKLARI SAKLIDIR - <a href="#">Ecem OKAN</a> - <a href="#">TRAKYA ÜNİVERSİTESİ</a></div>
+    </div>
+
+</body>
+</html>
+
+@RenderSection("scripts", required: false)

@@ -1,0 +1,298 @@
+﻿@model Movie_Ticket.ViewModels.FilmDetayViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="Filmizle">
+    <div class="Filmizle">
+        <div class="UstBaslik">
+            <div class="B">@Model.Film.Adi</div>
+            <div class="A">@Model.Film.Suresi</div>
+            <div class="K casasas"><button class="icobutton icobutton--heart"><span style="font-size: 29px;" class="fa fa-heart"></span></button></div>
+
+            <div class="clear"></div>
+        </div>
+
+
+        <div class="FilmBilgi">
+            <div class="afis"><img src="~/Content/upload/@Model.Film.Afis" alt="" style="height:165px; width:120px" /></div>
+            <ul>
+                <li><div class="ad">KATEGORİ <span>:</span></div> <div class="ack">@Model.Film.FilmTuru.Turu</div></li>
+                <li><div class="ad">SÜRE <span>:</span></div> <div class="ack">@Model.Film.Suresi</div></li>
+                <li><div class="ad">OYUNCULAR <span>:</span></div> <div class="ack">@Model.Film.Oyuncular</div></li>
+                <li><div class="ad">DİL <span>:</span></div> <div class="ack">@Model.Film.Dil</div></li>
+                <div class="clear"></div>
+            </ul>
+            <div class="ozet"><span>ÖZET:</span>@Model.Film.Ozet</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="BilgiAlt">
+        <div class="YorumYap">
+
+            <div class="row">
+                <div>
+                   
+                    <select class="select-css seanslar">
+                        <option value="0"> Seans Seçiniz</option>
+                        @foreach (var item in Model.Seans)
+                        {
+                            <option value="@item.ID"> @item.Saat</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div>
+                   
+                    <select class="salonlar">
+                        <option value="0"> Salon Seçiniz</option>
+                        @*@foreach (var item in Model.Salon)
+                            {
+                                <option value="@item.ID"> @item.SalonAdi</option>
+                            }*@
+
+                    </select>
+                </div>
+            </div>
+            <!-- seat -->
+            <ul class="seat_w3ls">
+                <li class="smallBox greenBox">Seçili Koltuk</li>
+
+                <li class="smallBox redBox">Rezerve Koltuklar</li>
+
+                <li class="smallBox emptyBox">Boş Koltuklar</li>
+            </ul>
+            <!-- seat availabilty list -->
+            <!-- seat layout -->
+            <div class="seatStructure txt-center" id="salonn">
+
+            </div>
+
+
+            <!-- //seat layout -->
+            <!-- details after booking displayed here -->
+            <div class="displayerBoxes txt-center" style="overflow-x:auto;">
+                <table class="Displaytable w3ls-table">
+                    <tr>
+
+                        <th>Seçilen Koltuklar</th>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <textarea id="seatsDisplay"></textarea>
+                        </td>
+                    </tr>
+                </table><br />
+                <button onclick="updateTextArea()">Seçimlerimi Göster</button><br /><br />
+                <button onclick="SendData()">Seçilen Veritabanına Kaydet</button>
+            </div>
+
+            <!-- seat end-->
+
+            <div class="clear"></div>
+        </div>
+        <div class="ifade">
+            <div class="b">İFADE BIRAK</div>
+            <div class="ifadeler">
+                <div class="if if1"><img class="ifadehover" title="Haha" src="~/Content/img/haha.png" alt="" /><span>111</span></div>
+                <div class="if if2"><img class="ifadehover" title="Şaşkın" src="~/Content/img/dizzy.png" alt="" /><span>111</span></div>
+                <div class="if if3"><img class="ifadehover" title="Üzgün" src="~/Content/img/sad.png" alt="" /><span>111</span></div>
+                <div class="if if4"><img class="ifadehover" title="Sinirli" src="~/Content/img/angry.png" alt="" /><span>111</span></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+
+    <div class="clear"></div>
+    <input type='hidden' id='current_page' />
+    <input type='hidden' id='show_per_page' />
+
+    <div class="FSayfa">
+        <ul class="page_navigation"></ul>
+        <div class="clear"></div>
+    </div>
+</div>
+
+@section scripts
+{
+    <!-- //js -->
+    <!-- script for seat selection -->
+    <script>
+        function onLoaderFunc() {
+            // $(".seatStructure *").prop("disabled", true);
+            // $(".displayerBoxes *").prop("disabled", true);
+        }
+
+
+
+
+        function updateTextArea() {
+
+            $(".seatStructure *").prop("disabled", false);
+
+            var allSeatsVals = [];
+
+            //Storing in Array
+            $('#seatsBlock :checked').each(function () {
+                allSeatsVals.push($(this).val());
+            });
+
+            //Displaying
+            $('#seatsDisplay').val(allSeatsVals);
+        }
+
+
+        function myFunction() {
+            alert($("input:checked").length);
+        }
+
+
+        $(":checkbox").click(function () {
+            if ($("input:checked").length == ($("#Numseats").val())) {
+                $(":checkbox").prop('disabled', true);
+                $(':checked').prop('disabled', false);
+            } else {
+                $(":checkbox").prop('disabled', false);
+            }
+        });
+
+        $(".seanslar").change(function () {
+            var id = $(this).val();
+            if (id != 0) {
+                $(".salonlar").empty();
+                $(".salonlar").append($('<option>', { value: 0, text: 'Salon Seçiniz' }));
+                $.ajax({
+                    type: "POST",
+                    url: "/Detail/SalonGetir",
+                    data: { ID: id },
+                    success: function (data) {
+
+                        var result = data.split("x");
+                        var val = result[1];
+                        var key = result[0];
+                        $(".salonlar").append($('<option>', { value: key, text: val }));
+                    }
+                });
+            }
+            else {
+                $("#salonn").empty();
+            }
+
+        });
+
+
+
+        $(".salonlar").change(function () {
+            var id = $(this).val();
+            var seansID = $('.seanslar').val();
+            if (id != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Detail/KoltukGetir",
+                    data: { ID: id },
+                    success: function (data) {
+                        var result = data.split("x");
+                        var satir = result[1];
+                        var sutun = result[0];
+                        SalonOlustur(satir, sutun);
+                        rezervasyonGetir();
+                        /*
+                        $.ajax({
+                            type: "POST",
+                            url: "/Detail/Rezerve",
+                            data: { ID: seansID },
+                            success: function (data) {
+                                // 1x1_1x2
+                                var result = data.split("_");
+                                for (var i = 0; i < result.length; i++) {
+                                    var koltuk = result[i].split("x");
+                                    var satir = koltuk[1];
+                                    var sutun = koltuk[0];
+                                    Rezerve(satir, sutun);
+                                }
+
+                            }
+                        });
+                        */
+                    }
+                });
+            }
+            else {
+                $("#salonn").empty();
+            }
+        });
+
+        function SalonOlustur(satir, sutun) {
+            $("#salonn").empty();
+            var element = "<table id='seatsBlock'><p id='notification'></p>";
+            for (var i = 1; i <= satir; i++) {
+                element += "<tr>"
+                for (var j = 1; j <= sutun; j++) {
+                    element += "<td><input type='checkbox' class='seats' value='" + i + "x" + j + "'></td>";
+                }
+                element += "</tr>";
+            }
+            element += "</table>";
+            $("#salonn").append(element);
+        }
+        function Rezerve(satir, sutun) {
+            $(".seats").each(function () {
+                if ($(this).val() == sutun + "x" + satir)
+                    $(this).prop("disabled", true);
+            });
+        }
+
+
+
+        function rezervasyonGetir() {
+            var seansID = $('.seanslar').val();
+            $.ajax({
+                type: "POST",
+                url: "/Detail/Rezerve",
+                data: { ID: seansID },
+                success: function (data) {
+                    // 1x1_1x2
+                    var result = data.split("_");
+                    for (var i = 0; i < result.length; i++) {
+                        var koltuk = result[i].split("x");
+                        var satir = koltuk[1];
+                        var sutun = koltuk[0];
+                        Rezerve(satir, sutun);
+                    }
+
+                }
+            });
+        }
+
+        function SendData() {
+            //var koltuklar = $("#seatsDisplay").val();
+
+            updateTextArea();
+            var _data = { KoltukNo: $("#seatsDisplay").val(), SeansID: $('.seanslar').val() };
+            $.ajax({
+                type: "POST",
+                url: "/Detail/BiletSat",
+                data: _data,//{ KoltukNo: koltuklar, SeansID: $('.seanslar').val() },
+                success: function (result) {
+                    rezervasyonGetir();
+                   // console.log("Başarılı...");
+                    //alert("Satış işlemi yaıldı");
+                    //var result = data.split("x");
+                    //var val = result[1];
+                    //var key = result[0];
+                    //$(".salonlar").append($('<option>', { value: key, text: val }));
+                }
+            });
+        }
+
+    </script>
+}

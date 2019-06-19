@@ -1,0 +1,113 @@
+﻿@model Movie_Ticket.Areas.admin.ViewModels.KullaniciAdd
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Kullanici Ekle <small>Kullanici İçeriğinin Eklenmesi</small></h2>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.RouteUrl("Users")'">Kullanici Listesi</button>
+        </div>
+
+        <div class="clearfix"></div>
+        @Html.Raw(@ViewBag.Message)
+        @using (Html.BeginForm("Add", "Users", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="x_content">
+            <br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Adı <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Ad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ad, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Soyadı <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Soyad, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Cep Tel <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Ceptel, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ceptel, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    E-mail <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Şifre <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.EditorFor(model => model.SifreHash, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SifreHash, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div><br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dersadi">
+                    Yetki Adı <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select class="form-control">
+                        <option value="0"> Rol Seçiniz</option>
+                        @foreach (var item in Model.Roles)
+                        {
+                            <option value="@item.ID"> @item.Rol</option>
+                        }
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <br />
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                    <button type="submit" class="btn btn-success">Kaydet</button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
