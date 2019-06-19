@@ -33,7 +33,7 @@
 
             <div class="row">
                 <div>
-                   
+
                     <select class="select-css seanslar">
                         <option value="0"> Seans Seçiniz</option>
                         @foreach (var item in Model.Seans)
@@ -47,7 +47,7 @@
             <br />
             <div class="row">
                 <div>
-                   
+
                     <select class="salonlar">
                         <option value="0"> Salon Seçiniz</option>
                         @*@foreach (var item in Model.Salon)
@@ -271,8 +271,6 @@
         }
 
         function SendData() {
-            //var koltuklar = $("#seatsDisplay").val();
-
             updateTextArea();
             var _data = { KoltukNo: $("#seatsDisplay").val(), SeansID: $('.seanslar').val() };
             $.ajax({
@@ -281,12 +279,6 @@
                 data: _data,//{ KoltukNo: koltuklar, SeansID: $('.seanslar').val() },
                 success: function (result) {
                     rezervasyonGetir();
-                   // console.log("Başarılı...");
-                    //alert("Satış işlemi yaıldı");
-                    //var result = data.split("x");
-                    //var val = result[1];
-                    //var key = result[0];
-                    //$(".salonlar").append($('<option>', { value: key, text: val }));
                 }
             });
         }
