@@ -3,8 +3,7 @@
 _Trakya Üniversitesi Web Tabanlı Programlama dersinde Nhibernate, MySql, FluentMigrator gibi araçların ve ASP.NET MVC design pattern'in kullanıldığı proje ödevidir._
 
 Proje Sunumu :
-[https://prezi.com/view/IhSwLWPRHt2VTwY57xRI/
-](url)
+[https://prezi.com/view/IhSwLWPRHt2VTwY57xRI](url)
 
 ![login](https://user-images.githubusercontent.com/13876601/59803633-b5b93480-92f4-11e9-948e-b0cf014e2f05.PNG)
 
