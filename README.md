@@ -1,4 +1,4 @@
-# Movie_Ticket
+ # Movie_Ticket
 
 _Trakya Üniversitesi Web Tabanlı Programlama dersinde Nhibernate, MySql, FluentMigrator gibi araçların ve ASP.NET MVC design pattern'in kullanıldığı proje ödevidir._
 
